@@ -56,8 +56,6 @@ class FileGenerator:
 
 
 class FileHandler:
-    HANDLE_SLEEP_SECONDS = 2
-
     def __init__(self, file_type: FileType):
         self.file_type = file_type
         self._id = uuid.uuid4().hex

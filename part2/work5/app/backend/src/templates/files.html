@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <title>Simple decentralized distributed file app</title>
+</head>
+
+<body>
+    <h1>Simple decentralized distributed file app</h1>
+
+    <!-- <iframe name="dummy-for-form" id="dummy-for-form" style="display:none;"></iframe> -->
+
+    <form method="POST" action="upload" enctype="multipart/form-data">
+        <label for="files">File</label>
+        <input id="files" name="files" type="file" multiple/>
+        <button>Upload</button>
+    </form>
+
+    <div>
+        {% for file in files %}
+            <p>
+                <a href="download/{{ file }}">{{ file }}</a>
+            </p>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

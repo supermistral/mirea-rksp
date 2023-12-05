@@ -1,0 +1,57 @@
+version: '3'
+
+services:
+  proxy:
+    build: ./app/nginx
+    container_name: ddf-proxy
+    ports:
+      - 80:80
+    volumes:
+      - ./app/nginx/nginx.conf:/etc/nginx/conf.d/app.conf:ro
+    depends_on:
+      - app1
+    restart: on-failure
+
+  app1:
+    build: ./app/backend
+    container_name: ddf-app1
+    command: ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    environment:
+      - APP_INSTANCE=app1
+    volumes:
+      - ./app/backend/src:/usr/src/app/src
+      - ./user-files:/usr/src/user-files
+    restart: on-failure
+
+  app2:
+    build: ./app/backend
+    container_name: ddf-app2
+    command: ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    environment:
+      - APP_INSTANCE=app2
+    volumes:
+      - ./app/backend/src:/usr/src/app/src
+      - ./user-files:/usr/src/user-files
+    restart: on-failure
+
+  app3:
+    build: ./app/backend
+    container_name: ddf-app3
+    command: ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    environment:
+      - APP_INSTANCE=app3
+    volumes:
+      - ./app/backend/src:/usr/src/app/src
+      - ./user-files:/usr/src/user-files
+    restart: on-failure
+
+  app4:
+    build: ./app/backend
+    container_name: ddf-app4
+    command: ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    environment:
+      - APP_INSTANCE=app4
+    volumes:
+      - ./app/backend/src:/usr/src/app/src
+      - ./user-files:/usr/src/user-files
+    restart: on-failure

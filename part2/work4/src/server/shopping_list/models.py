@@ -5,7 +5,8 @@ from sqlalchemy.orm import validates
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 
-from db import Base
+from server.db import Base
+from .schemas import Product as ProductSchema
 
 
 class Product(Base):
@@ -25,3 +26,6 @@ class Product(Base):
         if value < 0:
             raise ValueError("Quantity must be a positive number")
         return value
+
+    def to_json(self) -> str:
+        return ProductSchema.model_validate(self, strict=False).model_dump_json()

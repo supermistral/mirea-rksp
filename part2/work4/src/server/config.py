@@ -1,7 +1,9 @@
-from pydantic import BaseConfig
+from pydantic import ConfigDict, BaseModel
 
 
-class Config(BaseConfig):
+class Config(BaseModel):
+    model_config = ConfigDict(validate_default=False)
+
     HOST: str = "localhost"
     PORT: int = 6565
     DATABASE_URL: str = "sqlite+aiosqlite:///database.db"

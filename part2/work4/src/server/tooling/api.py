@@ -5,7 +5,7 @@ from typing import Callable
 from typing import Awaitable
 from functools import wraps
 
-from db import get_session
+from server.db import get_session
 
 
 def load_data(data: Union[str, bytes]) -> Any:

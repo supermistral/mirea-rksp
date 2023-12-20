@@ -1,12 +1,12 @@
 import asyncio
+import functools
 from typing import Callable
 from typing import Awaitable
-from functools import wraps
 
 
 def async_to_sync(f: Callable[..., Awaitable]) -> Callable:
-    @wraps(f)
-    def wrapper(*args, **kwargs):
-        asyncio.run(f(*args, **kwargs))
+    @functools.wraps(f)
+    def wrapper(self, *args, **kwargs):
+        return asyncio.ensure_future(f(self, *args, **kwargs))
 
     return wrapper

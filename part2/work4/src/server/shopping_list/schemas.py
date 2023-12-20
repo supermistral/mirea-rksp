@@ -13,17 +13,17 @@ class Product(BaseModel):
     completed: bool
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class ProductCreate(BaseModel):
     text: str
-    quantity: Optional[str] = Field(None, gt=0)
-    completed: Optional[bool]
+    quantity: Optional[int] = Field(None, gt=0)
+    completed: Optional[bool] = None
 
 
 class ProductUpdate(BaseModel):
     id: int
-    text: Optional[str]
+    text: Optional[str] = None
     quantity: Optional[int] = Field(None, gt=0)
-    completed: Optional[bool]
+    completed: Optional[bool] = None

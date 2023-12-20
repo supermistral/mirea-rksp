@@ -1,8 +1,15 @@
+DEFAULT_PYTHONPATH := ./src
+PYTHON := venv/bin/python
+
+
 install-dev:
 	python3 -m venv venv
 
 run-server:
-	cd ./src/server && ../../venv/bin/python main.py
+	PYTHONPATH=$(DEFAULT_PYTHONPATH) $(PYTHON) ./src/server/main.py
 
 run-client:
-	cd ./src/client && ../../venv/bin/python main.py
+	PYTHONPATH=$(DEFAULT_PYTHONPATH) $(PYTHON) ./src/client/main.py
+
+tests:
+	PYTHONPATH=. pytest -vv

@@ -4,16 +4,19 @@ import logging
 from rsocket.rsocket_server import RSocketServer
 from rsocket.transports.tcp import TransportTCP
 
-from shopping_list.handler import Handler
-from config import config
-from db import init_models
+from server.shopping_list.handler import handler_factory
+from server.config import config
+from server.db import init_models
 
 
 async def run_server():
     logging.info(f"Starting server at {config.HOST}:{config.PORT}")
 
     def session(*connection):
-        RSocketServer(TransportTCP(*connection), handler_factory=Handler)
+        RSocketServer(
+            TransportTCP(*connection),
+            handler_factory=handler_factory(),
+        )
 
     server = await asyncio.start_server(
         session,
@@ -26,7 +29,7 @@ async def run_server():
 
 
 async def setup():
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
     await init_models()
 
 
@@ -36,6 +39,4 @@ async def main():
 
 
 if __name__ == "__main__":
-    setup()
-
     asyncio.run(main())

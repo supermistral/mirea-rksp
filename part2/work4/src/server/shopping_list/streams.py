@@ -94,15 +94,10 @@ class ProductCreatingSubscriber(DefaultSubscriber):
         self.limit = limit
         self.db_session: Optional[AsyncSession] = None
         self.repo: Optional[ProductRepository] = None
-        # self._db_session_context = get_session()
 
     @async_to_sync
     async def on_subscribe(self, subscription: Subscription):
         self.subscription = subscription
-
-        # self.db_session = await self._db_session_context.__aenter__()
-        # self.repo = ProductRepository(db_session=self.db_session, commit_on_execution=False)
-        print(subscription)
         subscription.request(self.limit)
 
     @async_to_sync
@@ -131,9 +126,6 @@ class ProductCreatingSubscriber(DefaultSubscriber):
 
     async def _commit(self):
         LOG.info("[RC] Commit")
-
-        # await self.db_session.commit()
-        # await self._db_session_context.__aexit__()
 
 
 def _get_ttl(limit: int) -> int:
